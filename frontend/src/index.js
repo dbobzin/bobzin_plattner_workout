@@ -4,6 +4,9 @@ import "./index.css";
 import App from "./App";
 import { WorkoutsContextProvider } from "./context/WorkoutContext";
 import { AuthContextProvider } from "./context/AuthContext";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootswatch/dist/darkly/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.js';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
