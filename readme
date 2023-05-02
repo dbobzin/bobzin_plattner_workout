@@ -1,0 +1,5 @@
+# backend: npm run dev -- starts server then,
+
+# frontend: npm start -- starts server and allows you to use the
+
+# database to add workouts
