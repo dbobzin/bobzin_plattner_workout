@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function App() {
+function Workout() {
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
@@ -26,4 +26,4 @@ function App() {
   );
 }
 
-export default App;
+export default Workout;
