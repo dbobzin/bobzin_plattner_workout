@@ -29,12 +29,27 @@ const getWorkout = async (req, res) => {
 
 // create new workout
 const createWorkout = async (req, res) => {
-  const { title, load, reps } = req.body;
+  const { title, type, muscle, equipment, difficulty, instructions, load, reps } = req.body;
 
   let emptyFields = [];
 
   if (!title) {
     emptyFields.push("title");
+  }
+  if (!type) {
+    emptyFields.push("type");
+  }
+  if (!muscle) {
+    emptyFields.push("muscle");
+  }
+  if (!equipment) {
+    emptyFields.push("equipment");
+  }
+  if (!difficulty) {
+    emptyFields.push("difficulty");
+  }
+  if (!instructions) {
+    emptyFields.push("instructions");
   }
   if (!load) {
     emptyFields.push("load");
@@ -47,11 +62,11 @@ const createWorkout = async (req, res) => {
       .status(400)
       .json({ error: "This field is required", emptyFields });
   }
-
+  
   // add doc to db
   try {
     const user_id = req.user._id;
-    const workout = await Workout.create({ title, load, reps, user_id });
+    const workout = await Workout.create({ title, type, muscle, equipment, difficulty, instructions, load, reps, user_id });
     res.status(200).json(workout);
   } catch (error) {
     res.status(400).json({ error: error.message });

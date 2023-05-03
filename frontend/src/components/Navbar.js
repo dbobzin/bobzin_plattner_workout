@@ -24,11 +24,11 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarColor01">
           {user ?
             <ul className="navbar-nav me-auto">
-              <li className="nav-item">
-                <Link to="/" className={`nav-link active ${path.endsWith("/") && "btn btn-outline-secondary"}`}>Home</Link>
+              <li className="nav-item me-2 mt-md-0 mt-2">
+                <Link to="/" className={`btn btn-${path.endsWith("/") ? "secondary" : "primary"}`}>Home</Link>
               </li>
-              <li className="nav-item ms-2">
-                <Link to="/Browse" className={`nav-link active ${path.endsWith("Browse") && "btn btn-outline-secondary"}`}>Browse</Link>
+              <li className="nav-item mt-md-0 mt-2">
+                <Link to="/Browse" className={`btn btn-${path.endsWith("Browse") ? "secondary" : "primary"}`}>Browse</Link>
               </li>
             </ul>
           : <ul className="navbar-nav me-auto"></ul>}
@@ -38,7 +38,7 @@ const Navbar = () => {
                 <li className="nav-item">
                   <Link to="" className="nav-link disabled d-none d-md-block" style={{color: "white"}}>{user.email}</Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item mt-md-0 mt-2">
                   <Link to="/" className="btn btn-outline-success" onClick={handleClick}>Log out</Link>
                 </li>
               </ul>

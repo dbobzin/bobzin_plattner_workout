@@ -13,6 +13,7 @@ function Browse() {
   const [type, setType] = useState("");
   const [muscle, setMuscle] = useState("");
   const [difficulty, setDifficulty] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
 
   const toggleFilters = () => setShowFilters(!showFilters);
 
@@ -26,10 +27,9 @@ function Browse() {
       }
     })
       .then((response) => response.json())
-      .then((data) => setWorkouts(data))
+      .then((data) => {setWorkouts(data); setShowAlert(data && data.length < 1)})
       .catch((error) => console.error(error));
     window.scrollTo({ top: 0, left: 0, behavior: "instant" })
-    console.log(workouts)
   }
 
   useEffect(() => {
@@ -63,14 +63,14 @@ function Browse() {
                 type="text"
                 onChange={(e) => setName(e.target.value)}
                 value={name}
-                className="form-control"
+                className="form-control bg-secondary text-white"
                 placeholder="Search..."
               />
             </div>
             <div className="col-sm-3 col-6 form-group">
               <label>Type</label>
-              <select className="form-select" value={type} onChange={e => setType(e.target.value)}>
-                <option key={-1} value="">Any</option>
+              <select className="form-select bg-secondary text-white" value={type} onChange={e => setType(e.target.value)}>
+                <option key={-1} value=""></option>
                 <option key={0} value="cardio">Cardio</option>
                 <option key={1} value="olympic Weightlifting">Olympic Weightlifting</option>
                 <option key={2} value="plyometrics">Plyometrics</option>
@@ -82,8 +82,8 @@ function Browse() {
             </div>
             <div className="col-sm-3 col-6 form-group">
               <label>Muscle</label>
-              <select className="form-select" value={muscle} onChange={e => setMuscle(e.target.value)}>
-                <option key={-1} value="">Any</option>
+              <select className="form-select bg-secondary text-white" value={muscle} onChange={e => setMuscle(e.target.value)}>
+                <option key={-1} value=""></option>
                 <option key={0} value="abdominals">Abdominals</option>
                 <option key={1} value="abductors">Abductors</option>
                 <option key={2} value="adductors">Adductors</option>
@@ -104,8 +104,8 @@ function Browse() {
             </div>
             <div className="col-sm-3 col-6 form-group">
               <label>Difficulty</label>
-              <select className="form-select" value={difficulty} onChange={e => setDifficulty(e.target.value)}>
-                <option key={-1} value="">Any</option>
+              <select className="form-select bg-secondary text-white" value={difficulty} onChange={e => setDifficulty(e.target.value)}>
+                <option key={-1} value=""></option>
                 <option key={0} value="beginner">Beginner</option>
                 <option key={1} value="intermediate">Intermediate</option>
                 <option key={2} value="expert">Expert</option>
@@ -121,7 +121,7 @@ function Browse() {
           <BrowseWorkoutDetail key={index} workout={workout} savedWorkouts={savedWorkouts} />
         ))}
       </div>
-      {workouts && workouts.length<1 && <div className="alert alert-warning">
+      {showAlert && <div className="alert alert-warning">
         <div className="d-flex align-items-center">
           <h4><BsFillExclamationTriangleFill className="me-3" /></h4>
           <p className="mb-0"><strong>Uh-oh!</strong> There are no workouts matching your search criteria. Widen your search and try again.</p>

@@ -30,6 +30,11 @@ const BrowseWorkoutDetail = ({ workout, savedWorkouts }) => {
 
         const newWorkout = {
             title: workout.name,
+            type: workout.type,
+            muscle: workout.muscle,
+            equipment: workout.equipment,
+            difficulty: workout.difficulty,
+            instructions: workout.instructions,
             load,
             reps
         };
@@ -110,7 +115,7 @@ const BrowseWorkoutDetail = ({ workout, savedWorkouts }) => {
                                 type="number"
                                 onChange={(e) => setLoad(e.target.value)}
                                 value={load}
-                                className={`form-control ${emptyFields.includes("load") ? "is-invalid" : ""}`}
+                                className={`form-control bg-secondary text-white ${emptyFields.includes("load") ? "is-invalid" : ""}`}
                                 placeholder="Load in lbs..."
                             />
                             <div className="invalid-feedback">{error}</div>
@@ -121,7 +126,7 @@ const BrowseWorkoutDetail = ({ workout, savedWorkouts }) => {
                                 type="number"
                                 onChange={(e) => setReps(e.target.value)}
                                 value={reps}
-                                className={`form-control ${emptyFields.includes("reps") ? "is-invalid" : ""}`}
+                                className={`form-control bg-secondary text-white ${emptyFields.includes("reps") ? "is-invalid" : ""}`}
                                 placeholder="Number of reps..."
                             />
                             <div className="invalid-feedback">{error}</div>

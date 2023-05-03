@@ -32,7 +32,7 @@ const SavedWorkoutDetail = ({ workout }) => {
       </div>
       <div className="d-flex">
         <div className="row flex-grow-1">
-          <div className="col-xl-6 col-12">
+          <div className="col-lg-7 col-12">
             <p className="mb-1">
               <strong>Type: </strong>
               {formatSentence(workout.type)}
@@ -46,7 +46,7 @@ const SavedWorkoutDetail = ({ workout }) => {
               {formatSentence(workout.equipment)}
             </p>
           </div>
-          <div className="col-xl-6 col-12">
+          <div className="col-lg-5 col-12">
             <p className="mb-1">
               <strong>Difficulty: </strong>
               {formatSentence(workout.difficulty)}

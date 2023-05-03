@@ -6,10 +6,10 @@ const WorkoutForm = () => {
   const { user } = useAuthContext();
 
   const [title, setTitle] = useState("");
-  const [type, setType] = useState("-1");
-  const [muscle, setMuscle] = useState("-1");
+  const [type, setType] = useState("");
+  const [muscle, setMuscle] = useState("");
   const [equipment, setEquipment] = useState("");
-  const [difficulty, setDifficulty] = useState("-1");
+  const [difficulty, setDifficulty] = useState("");
   const [load, setLoad] = useState("");
   const [reps, setReps] = useState("");
   const [instructions, setInstructions] = useState("");
@@ -25,7 +25,7 @@ const WorkoutForm = () => {
       return;
     }
 
-    const workout = { title, type, muscle, equipment, difficulty, load, reps, instructions };
+    const workout = { title, type, muscle, equipment, difficulty, instructions, load, reps };
 
     const response = await fetch("/api/workouts", {
       method: "POST",
@@ -43,10 +43,10 @@ const WorkoutForm = () => {
     }
     if (response.ok) {
       setTitle("");
-      setType("-1");
-      setMuscle("-1");
+      setType("");
+      setMuscle("");
       setEquipment("");
-      setDifficulty("-1");
+      setDifficulty("");
       setLoad("");
       setReps("");
       setInstructions("");
@@ -67,15 +67,14 @@ const WorkoutForm = () => {
           type="text"
           onChange={(e) => setTitle(e.target.value)}
           value={title}
-          className={`form-control ${emptyFields.includes("title") ? "is-invalid" : ""}`}
-          placeholder="Exercise name..."
+          className={`form-control bg-secondary text-white ${emptyFields.includes("title") ? "is-invalid" : ""}`}
         />
         <div className="invalid-feedback">{error}</div>
       </div>
       <div className="form-group mb-2">
         <label>Type</label>
-        <select className="form-select" value={type} onChange={e => setType(e.target.value)}>
-          <option key={-1} value="-1" hidden>Exercise type...</option>
+        <select className={`form-select bg-secondary text-white ${emptyFields.includes("type") ? "is-invalid" : ""}`} value={type} onChange={e => setType(e.target.value)}>
+          <option key={-1} value="" hidden></option>
           <option key={0} value="cardio">Cardio</option>
           <option key={1} value="olympic Weightlifting">Olympic Weightlifting</option>
           <option key={2} value="plyometrics">Plyometrics</option>
@@ -84,11 +83,12 @@ const WorkoutForm = () => {
           <option key={5} value="stretching">Stretching</option>
           <option key={6} value="strongman">Strongman</option>
         </select>
+        <div className="invalid-feedback">{error}</div>
       </div>
       <div className="form-group mb-2">
         <label>Muscle</label>
-        <select className="form-select" value={muscle} onChange={e => setMuscle(e.target.value)}>
-          <option key={-1} value="-1" hidden>Target muscle...</option>
+        <select className={`form-select bg-secondary text-white ${emptyFields.includes("muscle") ? "is-invalid" : ""}`} value={muscle} onChange={e => setMuscle(e.target.value)}>
+          <option key={-1} value="" hidden></option>
           <option key={0} value="abdominals">Abdominals</option>
           <option key={1} value="abductors">Abductors</option>
           <option key={2} value="adductors">Adductors</option>
@@ -106,6 +106,7 @@ const WorkoutForm = () => {
           <option key={14} value="traps">Traps</option>
           <option key={15} value="triceps">Triceps</option>
         </select>
+        <div className="invalid-feedback">{error}</div>
       </div>
       <div className="form-group mb-2">
         <label>Equipment used</label>
@@ -113,28 +114,27 @@ const WorkoutForm = () => {
           type="text"
           onChange={(e) => setEquipment(e.target.value)}
           value={equipment}
-          className={`form-control ${emptyFields.includes("equipment") ? "is-invalid" : ""}`}
-          placeholder="Equipment used..."
+          className={`form-control bg-secondary text-white ${emptyFields.includes("equipment") ? "is-invalid" : ""}`}
         />
         <div className="invalid-feedback">{error}</div>
       </div>
       <div className="form-group mb-2">
         <label>Difficulty</label>
-        <select className="form-select" value={difficulty} onChange={e => setDifficulty(e.target.value)}>
-          <option key={-1} value="-1" hidden>Difficulty level...</option>
+        <select className={`form-select bg-secondary text-white ${emptyFields.includes("difficulty") ? "is-invalid" : ""}`} value={difficulty} onChange={e => setDifficulty(e.target.value)}>
+          <option key={-1} value="" hidden></option>
           <option key={0} value="beginner">Beginner</option>
           <option key={1} value="intermediate">Intermediate</option>
           <option key={2} value="expert">Expert</option>
         </select>
+        <div className="invalid-feedback">{error}</div>
       </div>
       <div className="form-group mb-2">
-        <label>Load</label>
+        <label>Load (lbs)</label>
         <input
           type="number"
           onChange={(e) => setLoad(e.target.value)}
           value={load}
-          className={`form-control ${emptyFields.includes("load") ? "is-invalid" : ""}`}
-          placeholder="Load in lbs..."
+          className={`form-control bg-secondary text-white ${emptyFields.includes("load") ? "is-invalid" : ""}`}
         />
         <div className="invalid-feedback">{error}</div>
       </div>
@@ -144,8 +144,17 @@ const WorkoutForm = () => {
           type="number"
           onChange={(e) => setReps(e.target.value)}
           value={reps}
-          className={`form-control ${emptyFields.includes("reps") ? "is-invalid" : ""}`}
-          placeholder="Number of reps..."
+          className={`form-control bg-secondary text-white ${emptyFields.includes("reps") ? "is-invalid" : ""}`}
+        />
+        <div className="invalid-feedback">{error}</div>
+      </div>
+      <div className="form-group mb-2">
+        <label>Instructions</label>
+        <textarea
+          onChange={(e) => setInstructions(e.target.value)}
+          value={instructions}
+          rows={4}
+          className={`form-control bg-secondary text-white ${emptyFields.includes("instructions") ? "is-invalid" : ""}`}
         />
         <div className="invalid-feedback">{error}</div>
       </div>

@@ -35,18 +35,20 @@ const Home = () => {
   return (
     <div className="row mt-4">
       {isOpen && <WorkoutForm />}
-      <div className="d-flex justify-content-between">
-        <h2 className="mt-2 mb-2 ms-1">Your Workouts</h2>
-        <div className="d-sm-none">
-          {!isOpen && <button className="btn btn-success m-2 me-0" onClick={toggleForm}>Add New Workout</button>}
-          {isOpen && <button className="btn btn-primary m-2 me-0" onClick={toggleForm}>Hide Form</button>}
+      <div className="col mb-4 mx-3 p-0">
+        <div className="d-flex justify-content-between">
+          <h2 className="mt-2 mb-2 ms-1">Your Workouts</h2>
+          <div className="d-sm-none">
+            {!isOpen && <button className="btn btn-success m-2 me-0" onClick={toggleForm}>Add New Workout</button>}
+            {isOpen && <button className="btn btn-primary m-2 me-0" onClick={toggleForm}>Hide Form</button>}
+          </div>
         </div>
-      </div>
-      <div className="col list-group mb-4 ms-3">
-        {workouts &&
-          workouts.map((workout) => (
-            <SavedWorkoutDetail key={workout._id} workout={workout} />
-          ))}
+        <div className="list-group">
+          {workouts &&
+            workouts.map((workout) => (
+              <SavedWorkoutDetail key={workout._id} workout={workout} />
+            ))}
+        </div>
         {workouts && workouts.length < 1 && <div className="alert alert-primary">
           <div className="d-flex align-items-center">
             <h4><BsFillExclamationCircleFill className="me-3" /></h4>
