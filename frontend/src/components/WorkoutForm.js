@@ -12,6 +12,7 @@ const WorkoutForm = () => {
   const [difficulty, setDifficulty] = useState("-1");
   const [load, setLoad] = useState("");
   const [reps, setReps] = useState("");
+  const [instructions, setInstructions] = useState("");
   
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
@@ -24,7 +25,7 @@ const WorkoutForm = () => {
       return;
     }
 
-    const workout = { title, type, muscle, equipment, difficulty, load, reps };
+    const workout = { title, type, muscle, equipment, difficulty, load, reps, instructions };
 
     const response = await fetch("/api/workouts", {
       method: "POST",
@@ -48,6 +49,7 @@ const WorkoutForm = () => {
       setDifficulty("-1");
       setLoad("");
       setReps("");
+      setInstructions("");
       setError(null);
       setEmptyFields([]);
       console.log("new workout added", json);
@@ -57,16 +59,16 @@ const WorkoutForm = () => {
 
   return (
     <form className="form-group" onSubmit={handleSubmit}>
-      <h3>Add a new workout</h3>
+      <h2>Add a new workout</h2>
 
       <div className="form-group mb-2">
-        <label>Exercise title</label>
+        <label>Exercise name</label>
         <input
           type="text"
           onChange={(e) => setTitle(e.target.value)}
           value={title}
           className={`form-control ${emptyFields.includes("title") ? "is-invalid" : ""}`}
-          placeholder="Exercise title..."
+          placeholder="Exercise name..."
         />
         <div className="invalid-feedback">{error}</div>
       </div>

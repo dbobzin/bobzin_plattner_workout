@@ -1,10 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { useState } from "react";
 
 // components
-import WorkoutDetails from "../components/WorkoutDetails";
+import SavedWorkoutDetail from "../components/SavedWorkoutDetail";
 import WorkoutForm from "../components/WorkoutForm";
 
 const Home = () => {
@@ -33,19 +32,20 @@ const Home = () => {
 
   return (
     <div className="row mt-4">
-      <div className="col-12 d-sm-none mb-4">
+      <div className="col-12 d-sm-none">
         <div className="text-center">
-          {!isOpen && <button className="btn btn-primary" onClick={toggleForm}>Add a new workout</button>}
+          {!isOpen && <button className="btn btn-primary mb-3" onClick={toggleForm}>Add a new workout</button>}
         </div>
         {isOpen && <WorkoutForm />}
         <div className="text-end">
           {isOpen && <button className="btn btn-primary" onClick={toggleForm}>Hide form</button>}
         </div>
       </div>
-      <div className="col list-group">
+      <div className="col list-group mb-4 ms-3">
+        <h2>Your Workouts</h2>
         {workouts &&
           workouts.map((workout) => (
-            <WorkoutDetails key={workout._id} workout={workout} />
+            <SavedWorkoutDetail key={workout._id} workout={workout} />
           ))}
       </div>
       <div className="col-5 d-none d-sm-block">

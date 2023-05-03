@@ -8,6 +8,7 @@ const Navbar = () => {
 
   const handleClick = () => {
     logout();
+
   };
 
   return (
@@ -38,7 +39,7 @@ const Navbar = () => {
                   <Link to="" className="nav-link disabled d-none d-md-block" style={{color: "white"}}>{user.email}</Link>
                 </li>
                 <li className="nav-item">
-                  <button className="btn btn-secondary" onClick={handleClick}>Log out</button>
+                  <Link to="/" className="btn btn-secondary" onClick={handleClick}>Log out</Link>
                 </li>
               </ul>
             : <ul className="navbar-nav me-auto">
