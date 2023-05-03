@@ -43,7 +43,7 @@ const Navbar = () => {
                 </li>
               </ul>
             : <ul className="navbar-nav me-auto">
-              <li className="nav-item">
+              <li className="nav-item mt-md-0 mt-2">
                 <Link to={path.endsWith("login") ? "/signup" : "/login"} className="btn btn-success">{path.endsWith("login") ? "Sign Up" : "Log In"}</Link>
               </li>
             </ul>}
