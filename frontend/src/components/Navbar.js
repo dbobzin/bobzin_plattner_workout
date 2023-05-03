@@ -1,39 +1,55 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 const Navbar = () => {
   const { logout } = useLogout();
   const { user } = useAuthContext();
+  const path = useLocation().pathname;
 
   const handleClick = () => {
     logout();
   };
 
   return (
-    <header>
-      <div className="container">
+    <nav className="navbar navbar-expand-md navbar-dark bg-primary">
+      <div className="container-fluid">
         <Link to="/">
-          <h1>Workout Buddy</h1>
+          <img src="logo.png" alt="logo" width={35} className="mx-2"/>
         </Link>
-        <nav>
-          {user && (
-            <div>
-              <span>{user.email}</span>
-              <Link to="/">Home</Link>
-              <Link to="/Workout">Workouts</Link>
-              <button onClick={handleClick}>Log out</button>
-            </div>
-          )}
-
-          {!user && (
-            <div>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Signup</Link>
-            </div>
-          )}
-        </nav>
+        <Link to="/" className="navbar-brand">Bobzin-Plattner-Workouts</Link>
+        <button className="navbar-toggler bg-primary" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarColor01">
+          {user ?
+            <ul className="navbar-nav me-auto">
+              <li className="nav-item">
+                <Link to="/" className={`nav-link ${path.endsWith("/") && "active"}`}>Home</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/Browse" className={`nav-link ${path.endsWith("Browse") && "active"}`}>Browse</Link>
+              </li>
+            </ul>
+          : <ul className="navbar-nav me-auto"></ul>}
+          <div className="d-flex">
+            {user ?
+              <ul className="navbar-nav me-auto">
+                <li className="nav-item">
+                  <Link to="" className="nav-link disabled d-none d-md-block" style={{color: "white"}}>{user.email}</Link>
+                </li>
+                <li className="nav-item">
+                  <button className="btn btn-secondary" onClick={handleClick}>Log out</button>
+                </li>
+              </ul>
+            : <ul className="navbar-nav me-auto">
+              <li className="nav-item">
+                <Link to={path.endsWith("login") ? "/signup" : "/login"} className="btn btn-success">{path.endsWith("login") ? "Sign Up" : "Log In"}</Link>
+              </li>
+            </ul>}
+          </div>
+        </div>
       </div>
-    </header>
+    </nav>
   );
 };
 

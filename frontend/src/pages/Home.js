@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useState } from "react";
 
 // components
 import WorkoutDetails from "../components/WorkoutDetails";
@@ -9,6 +10,9 @@ import WorkoutForm from "../components/WorkoutForm";
 const Home = () => {
   const { workouts, dispatch } = useWorkoutsContext();
   const { user } = useAuthContext();
+  const [isOpen, setOpen] = useState(false);
+  const toggleForm = () => setOpen(!isOpen);
+
   useEffect(() => {
     const fetchWorkouts = async () => {
       const response = await fetch("/api/workouts", {
@@ -28,14 +32,25 @@ const Home = () => {
   }, [dispatch, user]);
 
   return (
-    <div className="home">
-      <div className="workouts">
+    <div className="row mt-4">
+      <div className="col-12 d-sm-none mb-4">
+        <div className="text-center">
+          {!isOpen && <button className="btn btn-primary" onClick={toggleForm}>Add a new workout</button>}
+        </div>
+        {isOpen && <WorkoutForm />}
+        <div className="text-end">
+          {isOpen && <button className="btn btn-primary" onClick={toggleForm}>Hide form</button>}
+        </div>
+      </div>
+      <div className="col list-group">
         {workouts &&
           workouts.map((workout) => (
             <WorkoutDetails key={workout._id} workout={workout} />
           ))}
       </div>
-      <WorkoutForm />
+      <div className="col-5 d-none d-sm-block">
+        <WorkoutForm />
+      </div>
     </div>
   );
 };
