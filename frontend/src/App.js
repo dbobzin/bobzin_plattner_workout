@@ -15,7 +15,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <div className="container-fluid">
-          <div className="col-lg-9 col-md-10 col-sm-11 col-12 m-auto">
+          <div className="col-lg-9 col-md-11 col-12 m-auto">
             <Routes>
               <Route
                 path="/"

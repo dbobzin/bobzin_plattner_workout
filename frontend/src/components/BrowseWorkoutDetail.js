@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-const BrowseWorkoutDetail = ({ workout, isSaved }) => {
+const BrowseWorkoutDetail = ({ workout, savedWorkouts }) => {
     const { dispatch } = useWorkoutsContext();
     const { user } = useAuthContext();
 
@@ -15,18 +15,11 @@ const BrowseWorkoutDetail = ({ workout, isSaved }) => {
     const [emptyFields, setEmptyFields] = useState([]);
 
     useEffect(() => {
-        if (!user) {
-            return;
-        }
-        fetch("/api/workouts", {
-            headers: {
-                Authorization: `Bearer ${user.token}`,
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => setSaved(data.some(sw => sw.title === workout.name)))
-            .catch((error) => console.error(error));
-    }, [user, workout.name]);
+        setSaved(savedWorkouts.some(sw => sw.title === workout.name))
+        setLoad("")
+        setReps("")
+        setShowInputs(false)
+    }, [savedWorkouts, user, workout.name]);
 
     const saveWorkout = async (e) => {
         e.preventDefault();

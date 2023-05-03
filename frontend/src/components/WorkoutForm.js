@@ -150,7 +150,7 @@ const WorkoutForm = () => {
         <div className="invalid-feedback">{error}</div>
       </div>
       
-      <button className="btn btn-success mt-2">Add Workout</button>
+      <button className="btn btn-success mt-2 mb-3">Add Workout</button>
     </form >
   );
 };

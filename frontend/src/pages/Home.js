@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { BsFillExclamationCircleFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 // components
 import SavedWorkoutDetail from "../components/SavedWorkoutDetail";
@@ -32,21 +34,25 @@ const Home = () => {
 
   return (
     <div className="row mt-4">
-      <div className="col-12 d-sm-none">
-        <div className="text-center">
-          {!isOpen && <button className="btn btn-primary mb-3" onClick={toggleForm}>Add a new workout</button>}
-        </div>
-        {isOpen && <WorkoutForm />}
-        <div className="text-end">
-          {isOpen && <button className="btn btn-primary" onClick={toggleForm}>Hide form</button>}
+      {isOpen && <WorkoutForm />}
+      <div className="d-flex justify-content-between">
+        <h2 className="mt-2 mb-2 ms-1">Your Workouts</h2>
+        <div className="d-sm-none">
+          {!isOpen && <button className="btn btn-success m-2 me-0" onClick={toggleForm}>Add New Workout</button>}
+          {isOpen && <button className="btn btn-primary m-2 me-0" onClick={toggleForm}>Hide Form</button>}
         </div>
       </div>
       <div className="col list-group mb-4 ms-3">
-        <h2>Your Workouts</h2>
         {workouts &&
           workouts.map((workout) => (
             <SavedWorkoutDetail key={workout._id} workout={workout} />
           ))}
+        {workouts && workouts.length < 1 && <div className="alert alert-primary">
+          <div className="d-flex align-items-center">
+            <h4><BsFillExclamationCircleFill className="me-3" /></h4>
+            <p className="mb-0">You do not have any workouts saved to your account. Add your own workouts, or <Link to="/Browse">browse workouts here</Link></p>
+          </div>
+        </div>}
       </div>
       <div className="col-5 d-none d-sm-block">
         <WorkoutForm />
