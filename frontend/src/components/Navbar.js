@@ -25,10 +25,10 @@ const Navbar = () => {
           {user ?
             <ul className="navbar-nav me-auto">
               <li className="nav-item">
-                <Link to="/" className={`nav-link ${path.endsWith("/") && "active"}`}>Home</Link>
+                <Link to="/" className={`nav-link active ${path.endsWith("/") && "btn btn-outline-secondary"}`}>Home</Link>
               </li>
-              <li className="nav-item">
-                <Link to="/Browse" className={`nav-link ${path.endsWith("Browse") && "active"}`}>Browse</Link>
+              <li className="nav-item ms-2">
+                <Link to="/Browse" className={`nav-link active ${path.endsWith("Browse") && "btn btn-outline-secondary"}`}>Browse</Link>
               </li>
             </ul>
           : <ul className="navbar-nav me-auto"></ul>}
